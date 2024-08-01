@@ -1,7 +1,11 @@
 <template>
-  <div></div>
+  <div class="home"></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// import UseUpload from "@/hooks/UseUpload";
 
-<style scoped></style>
+// const [] = UseUpload;
+</script>
+
+<style scoped lang="scss"></style>

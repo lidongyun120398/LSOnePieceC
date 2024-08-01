@@ -11,7 +11,8 @@
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx --max-warnings 0",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "commit": "git add . && git-cz"
+    "commit": "git add . && git-cz",
+    "mock": "vite --mode mock --force"
   },
   "lint-staged": {
     "src/**/*.{vue,js,jsx,ts,tsx,json}": [
@@ -38,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
     "autoprefixer": "^10.4.14",
     "commitizen": "^4.3.0",
     "commitlint-config-cz": "^0.13.3",

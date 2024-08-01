@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path"; //使用该path需要安装@types/node
 
 import tailwindcss from "tailwindcss";
@@ -14,6 +15,7 @@ const resolve = (dir) => path.resolve(__dirname, dir);
 export default defineConfig({
   plugins: [
     vue(),
+    vueJsx(),
     viteMockServe({
       mockPath: "./mock", // mock文件存放的位置
       localEnabled: true, //在开发环境中启用 mock

@@ -22,7 +22,7 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { getUserInfo } from "@/service/main/user";
 
-const loginForm = reactive({
+const loginForm: { loginName: string; password: string } = reactive({
   loginName: "",
   password: "",
 });
