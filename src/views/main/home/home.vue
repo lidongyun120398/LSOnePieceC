@@ -1,9 +1,11 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <UseUpload />
+  </div>
 </template>
 
 <script setup lang="ts">
-// import UseUpload from "@/hooks/UseUpload";
+import UseUpload from "@/hooks/UseUpload";
 
 // const [] = UseUpload;
 </script>

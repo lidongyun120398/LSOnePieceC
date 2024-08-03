@@ -2,8 +2,8 @@ import dyRequest from "../index";
 
 import { IDataType } from "../types";
 
-export function getUserInfo(url: string): Promise<IDataType> {
+export function getUserInfo(): Promise<IDataType> {
   return dyRequest.post<IDataType>({
-    url: url,
+    url: "/user/login",
   });
 }

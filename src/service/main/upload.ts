@@ -2,8 +2,9 @@ import dyRequest from "../index";
 
 import { IDataType } from "../types";
 
-export function uploadFiles(url: string): Promise<IDataType> {
+export function uploadFiles(formData: FormData): Promise<IDataType> {
   return dyRequest.post<IDataType>({
-    url: url,
+    url: "/upload",
+    data: formData,
   });
 }

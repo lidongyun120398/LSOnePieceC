@@ -30,7 +30,7 @@ const loginForm: { loginName: string; password: string } = reactive({
 const router = useRouter();
 const handleSumbit = async () => {
   try {
-    let res = await getUserInfo("/user/login");
+    let res = await getUserInfo();
     if (res.code === 0) {
       router.push("/home");
     }
