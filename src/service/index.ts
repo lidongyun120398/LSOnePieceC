@@ -20,13 +20,13 @@ const dyRequest = new DYRequest({
       return config;
     },
     requestInterceptorCatch: (error) => {
-      return error;
+      return Promise.reject(error);
     },
     responseInterceptor: (res) => {
       return res;
     },
     responseInterceptorCatch: (error) => {
-      return error;
+      return Promise.reject(error);
     },
   },
 });

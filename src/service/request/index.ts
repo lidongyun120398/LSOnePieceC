@@ -43,7 +43,7 @@ class DYRequest {
         return config;
       },
       (err) => {
-        return err;
+        return Promise.reject(err);
       },
     );
 
@@ -67,7 +67,7 @@ class DYRequest {
         if (err.response.status === 404) {
           throw new Error("404错误");
         }
-        return err;
+        return Promise.reject(err);
       },
     );
   }
@@ -99,7 +99,7 @@ class DYRequest {
         .catch((err) => {
           //再将showLoading设置为true，这样不影响下一个请求
           this.showLoading = DEFAULT_LOADING;
-          return err;
+          return Promise.reject(err);
         });
     });
   }
