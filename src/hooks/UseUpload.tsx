@@ -2,10 +2,6 @@ import { ElMessage } from "element-plus";
 
 import upload from "@/utils/upload";
 
-// const props = defineProps<{
-
-// }>
-
 const UseUpload: () => JSX.Element = (): JSX.Element => {
   const handleUpload = () => {};
 
