@@ -1,11 +1,22 @@
 import axios from "axios";
-import type { AxiosInstance } from "axios";
+import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import type { DYRequestConfig, DYRequestInterceptors } from "./type";
 
 import { ElLoading } from "element-plus";
 import { LoadingInstance } from "element-plus/lib/components/loading/src/loading";
 
+import { refreshToken } from "../main/user";
+
 const DEFAULT_LOADING = true;
+
+interface PendingTask {
+  config: AxiosRequestConfig;
+  resolve: (...args: any) => any;
+}
+
+const queue: PendingTask[] = [];
+
+let refreshing = false;
 
 //当传入的baseURL或者其他信息有变化的时候，通过创建两个实例的方法完成请求
 class DYRequest {
@@ -62,12 +73,35 @@ class DYRequest {
           return data;
         }
       },
-      (err) => {
-        //例子：判断不同的HttpErrorCode显示不同的错误信息
-        if (err.response.status === 404) {
-          throw new Error("404错误");
+      async (err) => {
+        const { data, config } = err.response;
+
+        if (refreshing) {
+          return new Promise((resolve) => {
+            queue.push({
+              config,
+              resolve,
+            });
+          });
         }
-        return Promise.reject(err);
+
+        if (data.statusCode === 401 && !config.url.includes("/refresh")) {
+          refreshing = true;
+
+          const res = await refreshToken();
+
+          if (res.code === 200) {
+            queue.forEach(({ config, resolve }) => {
+              resolve(this.instance(config));
+            });
+
+            return this.instance(config);
+          } else {
+            alert(data || "登录过期，请重新登录");
+          }
+        } else {
+          return err.response;
+        }
       },
     );
   }

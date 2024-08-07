@@ -25,7 +25,7 @@ const dyRequest = new DYRequest({
     responseInterceptor: (res) => {
       return res;
     },
-    responseInterceptorCatch: (error) => {
+    responseInterceptorCatch: async (error) => {
       return Promise.reject(error);
     },
   },

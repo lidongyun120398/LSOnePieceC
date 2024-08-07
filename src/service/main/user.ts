@@ -7,3 +7,9 @@ export function getUserInfo(): Promise<IDataType> {
     url: "/user/login",
   });
 }
+
+export function refreshToken(): Promise<IDataType> {
+  return dyRequest.post<IDataType>({
+    url: "/refresh",
+  });
+}

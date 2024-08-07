@@ -7,6 +7,7 @@ import "element-plus/dist/index.css";
 import App from "./App.vue";
 import router from "./router/index";
 import "./assets/css/reset.css";
+import permissionDirective from "./utils/permission";
 
 // 注册elementicon
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
@@ -15,4 +16,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
 
+app.directive("permission", permissionDirective);
 app.use(createPinia()).use(router).use(ElementPlus).mount("#app");
