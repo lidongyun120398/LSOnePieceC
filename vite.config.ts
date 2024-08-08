@@ -23,9 +23,9 @@ export default defineConfig({
     viteCompression({
       verbose: true,
       disable: false,
-      threshold: 10240,
-      algorithm: "gzip",
-      ext: ".gz",
+      threshold: 10240, //文件大于1MB开启压缩
+      algorithm: "gzip", //压缩方式
+      ext: ".gz", //后缀名
     }),
   ],
   resolve: {

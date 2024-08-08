@@ -43,6 +43,9 @@ class DYRequest {
     //添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
+        if (config.headers) {
+          config.headers.accpetEncoding = "gzip";
+        }
         //添加loading
         if (this.showLoading) {
           this.loading = ElLoading.service({
