@@ -51,7 +51,6 @@ const { listData, itemSize } = toRefs(props);
 const listHeight = computed(() => listData.value.length * itemSize.value);
 //可显示的列表项数
 const visibleCount = computed(() => Math.ceil(data.screenHeight / itemSize.value));
-console.log(JSON.stringify(visibleCount.value));
 //偏移量对应的style
 const getTransform = computed(() => `translate3d(0,${data.startOffset}px,0)`);
 //获取真实显示列表数据

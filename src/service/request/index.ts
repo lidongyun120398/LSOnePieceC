@@ -44,7 +44,7 @@ class DYRequest {
     this.instance.interceptors.request.use(
       (config) => {
         if (config.headers) {
-          config.headers.accpetEncoding = "gzip";
+          config.headers[`accpet-encoding`] = "gzip";
         }
         //添加loading
         if (this.showLoading) {
