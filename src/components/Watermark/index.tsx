@@ -1,4 +1,14 @@
-import { defineComponent, ExtractPublicPropTypes, type CSSProperties, type PropType } from "vue";
+import {
+  defineComponent,
+  ExtractPublicPropTypes,
+  type CSSProperties,
+  type PropType,
+  ref,
+  computed,
+  watch,
+  onMounted,
+} from "vue";
+import useWatermark from "./src/UseWatermark";
 
 interface IFontStyle {
   color?: string;
@@ -32,7 +42,7 @@ export const watermarkProps = {
   offset: {
     type: Object as PropType<[number, number]>,
   },
-  getContainer: () => HTMLElement,
+  getContainer: Function as PropType<() => HTMLElement>,
 } as const;
 
 export type WatermarkProps = ExtractPublicPropTypes<typeof watermarkProps>;
@@ -40,7 +50,65 @@ export type WatermarkProps = ExtractPublicPropTypes<typeof watermarkProps>;
 export default defineComponent({
   name: "Watermark",
   props: watermarkProps,
-  setup() {
-    return () => {};
+  setup(props) {
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    const { zIndex, width, height, rotate, image, content, fontStyle, gap, offset } = props;
+
+    const containerRef = ref<InstanceType<typeof HTMLDivElement> | null>(null);
+    // const getContainer = computed(() => (props.getContainer ? props.getContainer : containerRef.value!));
+
+    onMounted(() => {
+      const getContainer = () => {
+        return props.getContainer ? props.getContainer() : containerRef.value!;
+      };
+
+      const combine = computed(() => {
+        return {
+          zIndex,
+          width,
+          height,
+          rotate,
+          image,
+          content,
+          fontStyle,
+          gap,
+          offset,
+          getContainer,
+        };
+      });
+
+      const { generateWatermark } = useWatermark({
+        zIndex,
+        width,
+        height,
+        rotate,
+        image,
+        content,
+        fontStyle,
+        gap,
+        offset,
+        getContainer,
+      });
+
+      watch(
+        combine,
+        (newValue) => {
+          generateWatermark(newValue);
+        },
+        { immediate: true },
+      );
+    });
+
+    return {
+      containerRef,
+    };
+  },
+  render() {
+    const { className, style, $slots } = this;
+    return (
+      <div class={[className, "water"]} style={style} ref="containerRef">
+        {$slots.default?.()}
+      </div>
+    );
   },
 });

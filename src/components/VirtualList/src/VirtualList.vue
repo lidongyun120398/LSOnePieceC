@@ -71,7 +71,6 @@ const scrollEvent = () => {
 
 onMounted(() => {
   data.screenHeight = listRef!.value!.clientHeight;
-  console.log(data.screenHeight);
   data.start = 0;
   data.end = data.start + visibleCount.value;
 });
