@@ -2,7 +2,7 @@
   <div class="home">
     <!-- <UseUpload /> -->
     <Watermark content="李东运">
-      <virtual-list :list-data="listData" />
+      <virtual-list v-if="listData.length" :list-data="listData" />
     </Watermark>
   </div>
 </template>
@@ -13,11 +13,13 @@ import { ref, onMounted } from "vue";
 import VirtualList from "@/components/VirtualList";
 import Watermark from "@/components/Watermark";
 
-const listData = ref<Record<string, number>[]>([]);
+import { fakerDE as faker } from "@faker-js/faker";
+
+const listData = ref<Record<string, string | number>[]>([]);
 
 onMounted(() => {
-  for (let i = 0; i < 100000; i++) {
-    listData.value.push({ id: i, value: i });
+  for (let i = 0; i < 1000; i++) {
+    listData.value.push({ id: i, value: faker.lorem.sentences() });
   }
 });
 </script>
