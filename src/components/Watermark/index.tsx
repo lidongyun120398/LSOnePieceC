@@ -106,7 +106,7 @@ export default defineComponent({
   render() {
     const { className, style, $slots } = this;
     return (
-      <div class={[className, "water"]} style={style} ref="containerRef">
+      <div class={className} style={style} ref="containerRef">
         {$slots.default?.()}
       </div>
     );

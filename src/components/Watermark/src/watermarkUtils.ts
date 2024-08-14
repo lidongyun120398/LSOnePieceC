@@ -29,6 +29,7 @@ const defaultOptions = {
     fontFamily: "sans-serif",
     fontWeight: "normal",
   },
+  offset: [0, 0],
   getContainer: Element,
 };
 
@@ -48,6 +49,7 @@ export const getMergedOptions = (o: Partial<WatermarkOptions>) => {
       toNumber(options.gap?.[0], defaultOptions.gap[0]),
       toNumber(options.gap?.[1] || options.gap?.[0], defaultOptions.gap[1]),
     ],
+    offset: options.offset || defaultOptions.offset,
   } as Required<WatermarkOptions>;
 
   const mergedOffsetX = toNumber(mergedOptions.offset?.[0], 0)!;
@@ -165,6 +167,9 @@ export const getCanvasData = async (
 
     [...content].forEach((item, index) => {
       const { height: lineHeight, width: lineWidth } = measureSize.lineSize[index];
+
+      // const xStartPoint = -lineWidth / 2;
+      // const yStartPoint = -(options.height || measureSize.originHeight) / 2 + lineHeight * index;
 
       const xStartPoint = -lineWidth / 2;
       const yStartPoint = -(options.height || measureSize.originHeight) / 2 + lineHeight * index;
